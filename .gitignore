@@ -15,3 +15,7 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> admin (Vite/Vue) ###
+/admin/node_modules/
+###< admin (Vite/Vue) ###
