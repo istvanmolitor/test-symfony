@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Feladat szerkesztése{% endblock %}
+
+{% block body %}
+    <h1>Feladat szerkesztése: {{ task.title }}</h1>
+
+    {{ include('task/_form.html.twig') }}
+
+    <a href="{{ path('app_task_index') }}">Vissza a listához</a>
+{% endblock %}

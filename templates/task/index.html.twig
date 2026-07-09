@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Feladatok{% endblock %}
+
+{% block body %}
+    <h1>Feladatok</h1>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash flash-{{ label }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cím</th>
+                <th>Kész</th>
+                <th>Létrehozva</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.done ? 'igen' : 'nem' }}</td>
+                <td>{{ task.createdAt|date('Y-m-d H:i') }}</td>
+                <td>
+                    <a href="{{ path('app_task_show', {id: task.id}) }}">Megtekintés</a>
+                    <a href="{{ path('app_task_edit', {id: task.id}) }}">Szerkesztés</a>
+                    <form method="post" action="{{ path('app_task_delete', {id: task.id}) }}" onsubmit="return confirm('Biztosan törlöd?');" style="display: inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+                        <button type="submit">Törlés</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Nincs még feladat.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_task_new') }}">Új feladat</a>
+{% endblock %}
